@@ -7,10 +7,10 @@ transactions.get("/", (req, res) => {
   res.status(200).json(transactionsArray)
 });
 //SHOW
-transactions.get("/:id",(req,res)=>{
-  const {id} = req.params
+transactions.get("/:idx",(req,res)=>{
+  const {idx} = req.params
   if(transactionsArray[id]){
-    res.status(200).json(transactionsArray[id])
+    res.status(200).json(transactionsArray[idx])
   } else {
     res.redirect("/404");
   }
@@ -23,15 +23,22 @@ transactions.post("/", (req,res)=>{
 })
 
 //DELETE
-transactions.delete("/:id",(req,res)=>{
+transactions.delete("/:idx",(req,res)=>{
   const {id} = req.params
-  const deletedTransaction = transactionsArray.splice(id, 1);
-  if(transactionsArray[id]){
+  const deletedTransaction = transactionsArray.splice(idx, 1);
+  if(transactionsArray[idx]){
     res.status(200).json(deletedTransaction);
   } else {
     res.redirect("/404")
   }
 })
+
+//UPDATE
+transactions.put("/:idx", (req, res) => {
+  const {idx} = req.params
+  transactionsArray[idx] = req.body;
+  res.status(200).json(transactionsArray[idx]);
+});
 
 
 
