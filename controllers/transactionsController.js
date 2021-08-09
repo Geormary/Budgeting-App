@@ -2,7 +2,6 @@ const express = require("express");
 const transactions = express.Router();
 const transactionsArray = require("../models/transactions");
 
-
 //MIDDLEWARE
 
 //INDEX
@@ -19,18 +18,15 @@ transactions.get("/:index", (req, res) => {
   }
 });
 // //CREATE
-transactions.post("/", (req,res)=>{
-  console.log(req.body)
-  transactionsArray.push(req.body)
-  console.log(transactionsArray)
+transactions.post("/", (req, res) => {
+  transactionsArray.push(req.body);
   res.json(transactionsArray[transactionsArray.length - 1]);
-})
+});
 
 // //DELETE
 transactions.delete("/:indexArray", (req, res) => {
-    const deletedTransaction = transactionsArray.splice(req.params.indexArray, 1);
-    res.status(200).json(deletedTransaction);
-  });
-
+  const deletedTransaction = transactionsArray.splice(req.params.indexArray, 1);
+  res.status(200).json(deletedTransaction);
+});
 
 module.exports = transactions;
